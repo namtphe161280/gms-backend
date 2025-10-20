@@ -14,7 +14,7 @@ import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 @EnableWebSecurity
-@RequiredArgsConstructor
+@RequiredArgsConstructor 
 public class SecurityConfig {
 
     private final AccountDetailsServiceImpl accountDetailsService;
