@@ -35,7 +35,7 @@ public class Appointment {
     @Column(name = "status", length = 30)
     private String status;
 
-    @Column(name = "description", columnDefinition = "nvarchar(max)")
+    @Column(name = "description", columnDefinition = "nvarchar(255)")
     private String description;
 
     @Column(name = "image_url", length = 300)

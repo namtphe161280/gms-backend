@@ -17,12 +17,18 @@ public class Account {
     private Long accountId;
 
     @Column(name = "phone", length = 20, unique = true)
-    private String phone; // note: referenced to Employee.phone in docs
+    private String phone;
 
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "role_id", referencedColumnName = "role_id")
+    @Column(name = "password")
+    private String password;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "role_id")
     private Role role;
 
-    @Column(name = "password", length = 20)
-    private String password;
+    @Column(name = "otp_code")
+    private String otpCode;
+
+    @Column(name = "otp_expiry")
+    private Long otpExpiry;
 }

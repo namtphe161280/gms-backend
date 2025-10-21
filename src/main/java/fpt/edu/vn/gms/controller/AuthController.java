@@ -1,25 +1,41 @@
 package fpt.edu.vn.gms.controller;
 
 import fpt.edu.vn.gms.dto.*;
-import fpt.edu.vn.gms.service.impl.AuthServiceImpl;
-import lombok.RequiredArgsConstructor;
+import fpt.edu.vn.gms.service.AuthService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/auth")
-@RequiredArgsConstructor
+@CrossOrigin("*")
 public class AuthController {
 
-    private final AuthServiceImpl authService;
+    private final AuthService authService;
+
+    public AuthController(AuthService authService) {
+        this.authService = authService;
+    }
 
     @PostMapping("/login")
-    public LoginResponseDto login(@RequestBody LoginRequestDto dto) {
-        return authService.login(dto);
+    public ResponseEntity<LoginResponseDto> login(@RequestBody LoginRequestDto request) {
+        return ResponseEntity.ok(authService.login(request));
+    }
+
+    @PostMapping("/logout")
+    public ResponseEntity<String> logout(@RequestHeader("Authorization") String token) {
+        authService.logout(token);
+        return ResponseEntity.ok("Logged out successfully");
     }
 
     @PostMapping("/forgot-password")
-    public String forgotPassword(@RequestBody ForgotPasswordDto dto) {
-        authService.forgotPassword(dto);
-        return "OTP sent successfully!";
+    public ResponseEntity<String> forgotPassword(@RequestBody ForgotPasswordDto request) {
+        authService.forgotPassword(request);
+        return ResponseEntity.ok("OTP sent to your phone");
+    }
+
+    @PostMapping("/reset-password")
+    public ResponseEntity<String> resetPassword(@RequestBody ResetPasswordDto request) {
+        authService.resetPassword(request);
+        return ResponseEntity.ok("Password reset successfully");
     }
 }

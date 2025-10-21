@@ -15,10 +15,17 @@ spring:
 
 sms:
   viettel:
-    api-url: https://viettel-sms-api.vn/send
-    user-id: YOUR_USER_ID
-    service-id: YOUR_SERVICE_ID
-    sender: YOUR_BRAND_NAME
+    api-url: https://api.vietteltelecom.vn/sms/send
+    user-id: ${VIETTEL_USER_ID}
+    service-id: ${VIETTEL_SERVICE_ID}
+    sender: ${VIETTEL_SENDER}
+
+services:
+  gms-backend:
+    environment:
+      - VIETTEL_USER_ID=${VIETTEL_USER_ID}
+      - VIETTEL_SERVICE_ID=${VIETTEL_SERVICE_ID}
+      - VIETTEL_SENDER=${VIETTEL_SENDER}
 
 server:
   port: 8080
